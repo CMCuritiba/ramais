@@ -50,6 +50,7 @@ THIRD_PARTY_APPS = [
      'rest_framework.authtoken',
      'django_extensions',
      'django_filters',
+     'consumer',
 ]
 
 # Apps specific for this project go here.
@@ -397,13 +398,13 @@ LDAP_AUTH_CONNECTION_USERNAME = None
 LDAP_AUTH_CONNECTION_PASSWORD = None
 '''
 
-'''
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        #'rest_framework_simplejwt.authentication.JWTAuthentication',
+         'rest_framework.authentication.TokenAuthentication',
     ],
 }
-'''
 
 
 '''
