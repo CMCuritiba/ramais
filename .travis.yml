@@ -6,10 +6,11 @@ python:
 before_install:
   - export DJANGO_SETTINGS_MODULE=config.settings.test
   - export DATABASE_URL=sqlite:///ramais.db
+  - cd backend/ramais
 
 # comando para instalar dependencias
 install: 
-  - pip install -r backend/ramais/requirements.txt
+  - pip install -r requirements.txt
   - pip install codecov
 
 before_script:
@@ -19,7 +20,7 @@ before_script:
 
 # comando para rodas os testes
 script: 
-  - coverage run backend/ramais/manage.py test
+  - coverage run manage.py test
 
 after_success:
   codecov
