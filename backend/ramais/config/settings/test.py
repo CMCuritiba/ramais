@@ -20,6 +20,15 @@ TEMPLATES[0]['OPTIONS']['debug'] = False
 # Note: This key only used for development and testing.
 SECRET_KEY = env('DJANGO_SECRET_KEY', default='CHANGEME!!!')
 
+# Mail settings
+# ------------------------------------------------------------------------------
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+
+# In-memory email backend stores messages in django.core.mail.outbox
+# for unit testing purposes
+EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
+
 # CACHING
 # ------------------------------------------------------------------------------
 # Speed advantages of in-memory caching without having to run Memcached
@@ -56,6 +65,6 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
-    'default': env.db('DATABASE_TEST_URL'),
+    'default': env.db('DATABASE_URL', default='postgres:///ramais-test'),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
