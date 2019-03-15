@@ -13,7 +13,7 @@ class RamalFactory(DjangoModelFactory):
 	class Meta:
 		model = Ramal
 	id = 1
-	set_id = 172
+	setor_id = 172
 	numero = 4812
 	tipo = '0'
 	visivel = True
