@@ -9,7 +9,7 @@ before_install:
 
 # comando para instalar dependencias
 install: 
-  - pip install -r requirements.txt
+  - pip install -r backend/ramais/requirements.txt
   - pip install codecov
 
 #before_script:
@@ -19,7 +19,7 @@ install:
 
 # comando para rodas os testes
 script: 
-  - coverage run manage.py test
+  - coverage run backend/ramais/manage.py test
 
 after_success:
   codecov
