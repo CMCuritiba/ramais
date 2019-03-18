@@ -39,9 +39,13 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://buefy.github.io/#/documentation
     'nuxt-buefy',
+    '@nuxtjs/axios',
   ],
+  axios: {
+    baseURL: process.env.BASEURL || 'https://ramais-staging/api',
+    credentials: false
+  },
 
   /*
   ** Build configuration
