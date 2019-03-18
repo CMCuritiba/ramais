@@ -21,7 +21,7 @@ urlpatterns = [
     #path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     #path('hello/', views.HelloView.as_view(), name='hello'),
     path('ramal/', include(router.urls)),
-    path('listagem/', views.SetorFuncionarioRamalListView.as_view(), name='test-list'),
+    path('ramal/listagem/', views.SetorFuncionarioRamalListView.as_view(), name='listagem'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
