@@ -34,22 +34,26 @@ export default {
     },
     ramaisFiltrados() {
       //return this.lista;      
-      const filter = new RegExp(this.textoFiltro, 'i');
-      return this.lista.filter(el => {
-        if ((el['set_nome'].match(filter)) || (el['pes_nome'].match(filter)))
-          return true;
-        else
-          return false;
-      })
+      if (this.textoFiltro.trim() == '')
+        return this.lista
+      else {
+        const filter = new RegExp(this.textoFiltro, 'i');
+        return this.lista.filter(el => {
+          if ((el['set_nome'].match(filter)) || (el['pes_nome'].match(filter)))
+            return true;
+          else
+            return false;
+        })
+      }
     },
     informacao() {
-      if (this.textoFiltro != '')
+      if (this.textoFiltro.trim() != '')
         return 'Filtrando lista por : ' + this.textoFiltro;
       else
         return 'Lista completa';
     },
     corInfo() {
-      if (this.textoFiltro != '')
+      if (this.textoFiltro.trim() != '')
         return 'red darken-3';
       else
         return 'blue-grey darken-1';
