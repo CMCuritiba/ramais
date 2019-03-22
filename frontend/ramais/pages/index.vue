@@ -28,9 +28,10 @@ export default {
       textoFiltro: ''
     }
   },
+  
   computed: {
     lista() {
-      return this.$store.getters.ramais;
+      return this.$store.state.ramais;
     },
     ramaisFiltrados() {
       //return this.lista;      
