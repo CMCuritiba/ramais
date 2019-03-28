@@ -25,6 +25,9 @@ const createStore = () => {
       },
       insertRamal(state, ramalNovo) {
         console.log(state.ramaisCrud)
+      },
+      deleteRamal(state, ramal) {
+        console.log(state.ramaisCrud)
       }
     },
     actions: {
@@ -115,6 +118,27 @@ const createStore = () => {
         )
         .then(res => {
           vuexContext.commit("insertRamal", ramal)
+        })
+        .catch(e => {
+          console.log(e)
+          throw(e)
+        })
+      },
+      deleteRamal(vuexContext, ramal) {
+        let axiosConfig = {
+          headers: {
+              'Content-Type': 'application/json;charset=UTF-8',
+              "Access-Control-Allow-Origin": "*",
+          }
+        }
+
+        return axios.delete(
+          "http://localhost:8000/api/ramal/ramais/" + ramal.id + '/',
+          ramal,
+          axiosConfig          
+        )
+        .then(res => {
+          vuexContext.commit("deleteRamal", ramal)
         })
         .catch(e => {
           console.log(e)

@@ -70,6 +70,19 @@ export default {
     excluiRamal(indice, ramal) {
       this.indice = Object.assign({}, indice)
       this.ramalDeletado = Object.assign({}, ramal)
+      console.log(this.ramalDeletado)
+      if (confirm('Você tem certeza que quer excluir este ramal ?')) {
+        this.$store.dispatch("deleteRamal", ramal)
+        .then(() => {
+          this.dialog = false
+          this.$store.dispatch("loadRamais")
+          this.$store.dispatch("loadRamaisCrud")
+          this.lista
+        })
+        .catch(e => {
+          console.log(e)
+        })
+      }
     },
     close() {
       this.dialog = false
