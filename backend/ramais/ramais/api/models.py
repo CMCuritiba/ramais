@@ -64,3 +64,18 @@ class SetorFuncionarioRamal(models.Model):
     set_nome = models.CharField(max_length=500)
     pes_nome = models.CharField(max_length=500)
     numero = models.CharField(max_length=4)
+
+#------------------------------------------------------------------------------------------------
+#
+#------------------------------------------------------------------------------------------------
+class RamalAdmin(models.Model):
+    class Meta:
+        managed = False
+        db_table = "v_ramal_admin"
+
+    id = models.IntegerField(primary_key=True)
+    numero = models.CharField(max_length=4)
+    tipo = models.CharField(max_length=1)
+    visivel = models.BooleanField(default=True)
+    setor_id = models.IntegerField()
+    set_nome = models.CharField(max_length=500)

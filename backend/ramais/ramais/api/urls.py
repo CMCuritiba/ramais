@@ -22,6 +22,8 @@ urlpatterns = [
     #path('hello/', views.HelloView.as_view(), name='hello'),
     path('ramal/', include(router.urls)),
     path('ramal/listagem/', views.SetorFuncionarioRamalListView.as_view(), name='listagem'),
+    path('ramal/admin/', views.RamalAdminListView.as_view(), name='listagem-admin'),
+    path('setor/admin/', views.SetorAdminListView.as_view(), name='setor-admin'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

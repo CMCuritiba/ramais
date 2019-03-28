@@ -51,6 +51,7 @@ THIRD_PARTY_APPS = [
      'django_extensions',
      'django_filters',
      'consumer',
+     'corsheaders',
 ]
 
 # Apps specific for this project go here.
@@ -64,6 +65,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -417,3 +419,16 @@ SIMPLE_JWT = {
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
 '''
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_METHODS = ['DELETE','GET','OPTIONS','PATCH','POST','PUT',]
+
+CORS_ALLOW_HEADERS = ['*']
+
+CORS_ORIGIN_WHITELIST = (
+    'http//:localhost:8000',
+    'http//:localhost:3000',
+)

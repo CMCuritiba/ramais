@@ -1,19 +1,16 @@
 <template>
-<v-card>
-  <v-card-text>
-    <v-text-field box label="Digite o funcionário ou departamento" append-icon="search" id="textoFiltro" v-model="textoFiltro"></v-text-field>
-    <v-layout row wrap>
-      <v-flex md12 xs12>
-        <v-card :color="corInfo" class="white--text">
-          <v-card-title primary-title>
-            {{ informacao }}. Para baixar o PDF da lista, clique&nbsp;<b>AQUI</b>
-          </v-card-title>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-card-text>
-  <Tabela :listaFiltrada="ramaisFiltrados"/>
-</v-card>
+<div>
+  <v-toolbar>
+          <v-text-field
+            label="Digite o setor ou o nome para pesquisar"
+            append-icon="search"
+            v-model="textoFiltro"
+          ></v-text-field>
+  </v-toolbar>
+  <v-card>
+    <Tabela :listaFiltrada="ramaisFiltrados"/>
+  </v-card>
+</div>
 </template>
 
 <script>

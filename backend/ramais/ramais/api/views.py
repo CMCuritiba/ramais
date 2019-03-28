@@ -14,9 +14,13 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from ..util.auth import CUDPermission
 from .models import Ramal
+from .models import RamalAdmin
 from .models import SetorFuncionarioRamal
+from .models import Setor
 from .serializers import RamalSerializer
+from .serializers import RamalAdminSerializer
 from .serializers import SetorFuncionarioRamalSerializer
+from .serializers import SetorSerializer
 from consumer.lib import helper
 
 '''
@@ -41,8 +45,8 @@ class RamalViewSet(
                     mixins.DestroyModelMixin,
                     viewsets.GenericViewSet):
 
-    permission_classes = (CUDPermission,)
-    authentication_classes = [TokenAuthentication, ]
+    #permission_classes = (CUDPermission,)
+    #authentication_classes = [TokenAuthentication, ]
     queryset = Ramal.objects.all()
     serializer_class = RamalSerializer
 
@@ -55,3 +59,17 @@ class SetorFuncionarioRamalListView(generics.ListAPIView):
     filter_backends = (DjangoFilterBackend, OrderingFilter)
     filter_fields = ('set_nome', 'pes_nome', )
     ordering_fields = ('set_nome', 'pes_nome', )
+
+class RamalAdminListView(generics.ListAPIView):
+
+    permission_classes = (CUDPermission,)
+    authentication_classes = [TokenAuthentication, ]                    
+    serializer_class = RamalAdminSerializer    
+    queryset = RamalAdmin.objects.all()
+
+class SetorAdminListView(generics.ListAPIView):
+
+    permission_classes = (CUDPermission,)
+    authentication_classes = [TokenAuthentication, ]                    
+    serializer_class = SetorSerializer    
+    queryset = Setor.objects.all()    
