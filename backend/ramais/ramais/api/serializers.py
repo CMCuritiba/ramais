@@ -5,6 +5,7 @@ from .models import Ramal
 from .models import Setor
 from .models import Funcionario
 from .models import SetorFuncionarioRamal
+from .models import RamalAdmin
 
 class SetorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,4 +26,9 @@ class RamalSerializer(serializers.ModelSerializer):
 class SetorFuncionarioRamalSerializer(serializers.ModelSerializer):
     class Meta:
         model = SetorFuncionarioRamal
-        fields = ('set_id', 'pessoa', 'set_nome', 'pes_nome', 'numero')                
+        fields = ('set_id', 'pessoa', 'set_nome', 'pes_nome', 'numero')
+
+class RamalAdminSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RamalAdmin
+        fields = ('id', 'numero', 'tipo', 'visivel', 'setor_id', 'set_nome')        

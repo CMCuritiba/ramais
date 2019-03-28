@@ -1,15 +1,15 @@
 <template>
   <v-app>
-    <ToolBar />
+    <ToolBarAdmin />
     <nuxt/>
   </v-app>
 </template>
 
 <script>
-import ToolBar from '~/components/UI/ToolBar.vue';
+import ToolBarAdmin from '~/components/UI/admin/ToolBarAdmin.vue'
 export default {
   components: {
-    ToolBar
+    ToolBarAdmin
   }
 }
 
