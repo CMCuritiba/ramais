@@ -9,6 +9,19 @@
   </v-toolbar>
   <v-card>
     <Tabela :listaFiltrada="ramaisFiltrados"/>
+    <v-btn
+      color="red darken-4"
+      dark
+      small
+      absolute
+      bottom
+      left
+      fab
+      @click="geraPDF"
+      :disabled="$store.state.carregando"
+    >
+      <v-icon>print</v-icon>
+    </v-btn>
   </v-card>
 </div>
 </template>
@@ -22,7 +35,8 @@ export default {
   },
   data() {
     return {
-      textoFiltro: ''
+      textoFiltro: '',
+      desabilitado: false
     }
   },
   
@@ -44,19 +58,13 @@ export default {
         })
       }
     },
-    informacao() {
-      if (this.textoFiltro.trim() != '')
-        return 'Filtrando lista por : ' + this.textoFiltro;
-      else
-        return 'Lista completa';
-    },
-    corInfo() {
-      if (this.textoFiltro.trim() != '')
-        return 'red darken-3';
-      else
-        return 'blue-grey darken-1';
-    }
   },
+  methods: {
+    geraPDF() {
+      console.log('GERA PDF')
+      this.$store.dispatch("geraRelatorio", this.textoFiltro)
+    }
+  }
 
 }
 </script>

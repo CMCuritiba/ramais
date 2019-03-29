@@ -44,5 +44,9 @@ module.exports = {
         })
       }*/
     }
-  }
+  },
+  server: {
+    port: 3000,
+    host: '10.0.1.16'
+  },
 }

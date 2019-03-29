@@ -1,0 +1,130 @@
+{% extends "easy_pdf/base.html" %}
+{% load reporttags %}
+
+{% block layout_style %}
+    <style type="text/css">
+        @page {
+            size: {{ pagesize|default:"A4" }};
+            margin-left: 0.5cm;
+            margin-right: 0.5cm;
+            margin-top: 3.65cm;
+            margin-bottom: 1cm;
+            @frame header {
+                -pdf-frame-content: page-header;
+                margin-top: 0.5cm;
+                margin-right: 0.5cm;
+                margin-bottom: 0.5cm;
+                margin-left: 0.5cm;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block extra_style %}
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"> 
+    
+    <style type="text/css">
+        .header h1 {
+            padding-left: 60px;
+            padding-top:-55px;
+            font-size: 24px;
+            font-weight: normal;
+        }
+        .header h2 {
+            font-size: 18px;
+            font-weight: normal;
+            padding-top:-30px;
+            padding-left: 62px;
+        }
+
+        .header h4 {
+            font-size: 10px;
+            font-weight: normal;
+            padding-top:-30px;
+            padding-left: 62px;
+        }
+        table.bordered {
+            border-top: 0.1pt solid #999999;
+            border-bottom: 0.1pt solid #999999;
+        }
+
+        td {
+            font-size: 12px;
+            padding-top: 5px;
+            padding-bottom: 0px;
+            padding-left: 3px;
+        }
+
+        .logo { margin-bottom: 20px;}
+
+        table.table-header {
+            width: 100%;
+            background-color: #b3b3b3;
+        }
+
+        table.relatorio {
+            width: 100%;
+        }
+
+        td.numero {
+            width: 160px;
+            margin-right: 10px;
+        }
+
+        td.setor {
+            width: 300px;
+        }
+
+        td.pessoa {
+            width: 300px;
+        }
+
+        .odd { 
+            background-color: #d3d3d3;
+        }
+
+        .even { 
+            background-color: #fff;
+        }
+
+        {% block my_style %}
+        {% endblock %} 
+
+    </style>
+{% endblock %} 
+
+{% block page_header %}
+    <div id="page-header">
+        <div class="header">
+            <img src="{{''|brasao}}" height="40" style="margin-top:5px;margin-right:130px;"></img>
+            <h1>Câmara Municipal de Curitiba</h1>
+            <h2>{% block report_title %}Lista de Ramais{% endblock %}</h2>
+        </div>
+        <table class="table-header">
+            <tr>
+                <td class="setor">Setor</td>
+                <td class="pessoa">Funcionário</td>
+                <td class="numero" align="right">Ramal</td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
+
+{% block content %}
+{% if ramais %}
+    <div id="content">
+        <table class="relatorio">
+            {% for ramal in ramais %}
+            <tr>
+                <td class="setor {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %}">{{ ramal.set_nome }}</td>
+                <td class="pessoa {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %}">{{ ramal.pes_nome }}</td>
+                <td class="numero {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %}" align="right">{{ ramal.numero }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% else %}
+    <h2 align="center">Nenhum ramal para a pesquisa selecionada.</h2>
+{% endif %}    
+
+{% endblock content %}
