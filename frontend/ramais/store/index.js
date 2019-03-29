@@ -6,9 +6,16 @@ const createStore = () => {
     state: {
       ramais: [],
       ramaisCrud: [],
-      setores: []
+      setores: [],
+      carregando: false
     },
     mutations: {
+      isLoading(state) {
+        state.carregando = true
+      },
+      doneLoading(state) {
+        state.carregando = false
+      },
       setRamais(state, lista) {
         state.ramais = lista;
       },
@@ -34,21 +41,21 @@ const createStore = () => {
       async nuxtServerInit({ commit }, context) {
         console.log('INIT')
        await axios
-        .get("http://localhost:8000/api/ramal/listagem/?format=json")
+        .get("http://10.0.1.16:8000/api/ramal/listagem/?format=json")
         .then(data => {
           commit("setRamais", data.data);
         })
         .catch(e => console.log(e));
 
        await axios
-        .get("http://localhost:8000/api/ramal/admin/?format=json")
+        .get("http://10.0.1.16:8000/api/ramal/admin/?format=json")
         .then(data => {
           commit("setRamaisCrud", data.data);
         })
         .catch(e => console.log(e));
 
         await axios
-        .get("http://localhost:8000/api/setor/admin/?format=json")
+        .get("http://10.0.1.16:8000/api/setor/admin/?format=json")
         .then(data => {
           commit("setSetores", data.data);
         })
@@ -57,7 +64,7 @@ const createStore = () => {
 
       loadRamais(vuexContext) {
         axios
-        .get("http://localhost:8000/api/ramal/listagem/?format=json")
+        .get("http://10.0.1.16:8000/api/ramal/listagem/?format=json")
         .then(data => {
           vuexContext.commit("setRamais", data.data);
         })
@@ -66,7 +73,7 @@ const createStore = () => {
 
       loadRamaisCrud(vuexContext) {
         axios
-        .get("http://localhost:8000/api/ramal/admin/?format=json")
+        .get("http://10.0.1.16:8000/api/ramal/admin/?format=json")
         .then(data => {
           vuexContext.commit("setRamaisCrud", data.data);
         })
@@ -75,7 +82,7 @@ const createStore = () => {
 
       loadSetores(vuexContext) {
         axios
-        .get("http://localhost:8000/api/setor/admin/?format=json")
+        .get("http://10.0.1.16:8000/api/setor/admin/?format=json")
         .then(data => {
           commit("setSetores", data.data);
         })
@@ -91,7 +98,7 @@ const createStore = () => {
         }
 
         return axios.put(
-          "http://localhost:8000/api/ramal/ramais/" + ramal.id + '/',
+          "http://10.0.1.16:8000/api/ramal/ramais/" + ramal.id + '/',
           ramal,
           axiosConfig          
         )
@@ -112,7 +119,7 @@ const createStore = () => {
         }
 
         return axios.post(
-          "http://localhost:8000/api/ramal/ramais/",
+          "http://10.0.1.16:8000/api/ramal/ramais/",
           ramal,
           axiosConfig          
         )
@@ -133,7 +140,7 @@ const createStore = () => {
         }
 
         return axios.delete(
-          "http://localhost:8000/api/ramal/ramais/" + ramal.id + '/',
+          "http://10.0.1.16:8000/api/ramal/ramais/" + ramal.id + '/',
           ramal,
           axiosConfig          
         )
@@ -143,6 +150,36 @@ const createStore = () => {
         .catch(e => {
           console.log(e)
           throw(e)
+        })
+      },
+
+      geraRelatorio(vuexContext, parametros) {
+        vuexContext.commit("isLoading")
+        let axiosConfig = {
+          headers: {
+              'Content-Type': 'application/json;charset=UTF-8',
+              "Access-Control-Allow-Origin": "*",
+          }
+        }
+
+        return axios.get(
+          "http://10.0.1.16:8000/api/relatorio/ramais/?parametros=" + parametros,
+          axiosConfig,
+        )
+        .then(res => {
+          //vuexContext.commit("deleteRamal", ramal)
+          var blob = new Blob([res.data], {
+            type: 'application/pdf'
+          });
+          var url = window.URL.createObjectURL(blob)
+          window.open(url, 'relatorio')
+        })
+        .catch(e => {
+          console.log(e)
+          throw(e)
+        })
+        .finally(() => {
+          vuexContext.commit("doneLoading")
         })
       }
     },

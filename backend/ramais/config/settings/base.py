@@ -52,6 +52,8 @@ THIRD_PARTY_APPS = [
      'django_filters',
      'consumer',
      'corsheaders',
+     'easy_pdf',
+     'cmcreport',
 ]
 
 # Apps specific for this project go here.
