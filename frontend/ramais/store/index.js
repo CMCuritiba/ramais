@@ -1,5 +1,26 @@
-import Vuex from 'vuex'
-import axios from 'axios'
+import Vue from "vue";
+import Vuex from "vuex";
+
+import setor from "./setor.module";
+import ramal from "./ramal.module";
+import pdf from "./pdf.module";
+
+Vue.use(Vuex);
+
+const createStore = () => {
+  return new Vuex.Store({
+
+    modules: {
+      setor,
+      ramal,
+      pdf
+    },
+  })
+}
+
+export default createStore
+
+/*
 
 const createStore = () => {
   return new Vuex.Store({
@@ -84,7 +105,7 @@ const createStore = () => {
         axios
         .get("http://10.0.1.16:8000/api/setor/admin/?format=json")
         .then(data => {
-          commit("setSetores", data.data);
+          vuexContext.commit("setSetores", data.data);
         })
         .catch(e => console.log(e));
       },
@@ -187,3 +208,4 @@ const createStore = () => {
 };
 
 export default createStore;
+*/
