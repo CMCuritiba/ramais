@@ -98,7 +98,7 @@ class GeraPdfRamais(CMCReportView):
         if parametros is None:
             ramais = SetorFuncionarioRamal.objects.all().order_by('set_id', 'pes_nome')
         else:            
-            ramais = SetorFuncionarioRamal.objects.filter(Q(pes_nome__icontains=parametros) | Q(set_nome__icontains=parametros)).order_by('set_id', 'pes_nome')
+            ramais = SetorFuncionarioRamal.objects.filter(Q(pes_nome__icontains=parametros) | Q(set_nome__icontains=parametros) | Q(numero__icontains=parametros)).order_by('set_id', 'pes_nome')
         self.ramais = ramais
 
         return super(GeraPdfRamais, self).get(request, *args, **kwargs)          

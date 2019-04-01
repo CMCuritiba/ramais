@@ -8,8 +8,18 @@
       </v-btn>
   </v-toolbar>
 <v-card>
+  <v-toolbar>
+    <v-text-field
+      label="Busca por ramal ou local"
+      append-icon="search"
+      v-model="textoFiltro"
+    ></v-text-field>
+    <div class="text-xs-center" v-if="textoFiltro">
+      <v-chip v-model="filtrado" close>Pesquisando por: {{ textoFiltro }}</v-chip>
+    </div>
+  </v-toolbar>
   <FormRamalAdmin :dialog="dialog" :ramal="ramalAlterado" :titulo="tituloForm" @close="close" @save="save"/>
-  <TabelaAdmin :lista="lista" @altera="alteraRamal" @exclui="excluiRamal"/>
+  <TabelaAdmin :lista="ramaisFiltrados" @altera="alteraRamal" @exclui="excluiRamal"/>
 </v-card>
 </div>
 </template>
@@ -27,9 +37,12 @@ export default {
 
   data() {
     return {
+      textoFiltro: '',
+      filtrado: false,
       tituloForm: 'Inclusão de Ramal',
       dialog: false,
       indice: -1,
+      lista: [],
       ramalAlterado: {
         id: 0,
         numero: "",
@@ -55,11 +68,42 @@ export default {
     }
   },
 
-  computed: {
-    lista() {
-      return this.$store.state.ramaisCrud;
-    },
+  async beforeCreate() {
+    await this.$store.dispatch("loadRamaisCrud")
+    this.lista = this.$store.getters.ramaisCrud;
   },
+
+  computed: {
+    ramaisFiltrados() {
+      if (this.textoFiltro.trim() == '')
+        return this.lista
+      else {
+        const filter = new RegExp(this.textoFiltro, 'i');
+        return this.lista.filter(el => {
+          console.log(el)
+          if ((el['set_nome'].match(filter)) || (el['numero'].match(filter)))
+            return true;
+          else
+            return false;
+        })
+      }
+    }
+  },
+
+  watch: {
+    textoFiltro: function (val) {
+      if (val.trim() != '') {
+        console.log(val)
+        this.filtrado = true
+      }
+    },
+    filtrado: function (val) {
+      if (!val) {
+        this.textoFiltro = ''
+      }
+    }
+  },
+
   methods: {
     alteraRamal(indice, ramal) {
       this.tituloForm = 'Alteração de Ramal'
@@ -67,50 +111,31 @@ export default {
       this.ramalAlterado = Object.assign({}, ramal)
       this.dialog = true
     },
-    excluiRamal(indice, ramal) {
+    async excluiRamal(indice, ramal) {
       this.indice = Object.assign({}, indice)
       this.ramalDeletado = Object.assign({}, ramal)
-      console.log(this.ramalDeletado)
       if (confirm('Você tem certeza que quer excluir este ramal ?')) {
-        this.$store.dispatch("deleteRamal", ramal)
-        .then(() => {
-          this.dialog = false
-          this.$store.dispatch("loadRamais")
-          this.$store.dispatch("loadRamaisCrud")
-          this.lista
-        })
-        .catch(e => {
-          console.log(e)
-        })
+        await this.$store.dispatch("deleteRamal", ramal)
+        this.dialog = false
+        await this.$store.dispatch("loadRamaisCrud")
+        this.lista = this.$store.getters.ramaisCrud;
       }
     },
     close() {
       this.dialog = false
     },
-    save() {
+    async save() {
       if (this.indice !== -1) {
-        this.$store.dispatch("editRamal", this.ramalAlterado)
-        .then(() => {
-          this.dialog = false
-          this.$store.dispatch("loadRamais")
-          this.$store.dispatch("loadRamaisCrud")
-          this.lista
-        })
-        .catch(e => {
-          console.log(e)
-        })
+        await this.$store.dispatch("editRamal", this.ramalAlterado)
+        this.dialog = false
+        await this.$store.dispatch("loadRamaisCrud")
+        this.lista = this.$store.getters.ramaisCrud;
       }
       else {
-        this.$store.dispatch("insertRamal", this.ramalAlterado)
-        .then(() => {
-          this.dialog = false
-          this.$store.dispatch("loadRamais")
-          this.$store.dispatch("loadRamaisCrud")
-          this.lista
-        })
-        .catch(e => {
-          console.log(e)
-        })
+        await this.$store.dispatch("insertRamal", this.ramalAlterado)
+        this.dialog = false
+        await this.$store.dispatch("loadRamaisCrud")
+        this.lista = this.$store.getters.ramaisCrud;
       }
     },
     novo() {

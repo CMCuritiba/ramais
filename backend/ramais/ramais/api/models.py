@@ -63,7 +63,8 @@ class SetorFuncionarioRamal(models.Model):
     pessoa = models.IntegerField()
     set_nome = models.CharField(max_length=500)
     pes_nome = models.CharField(max_length=500)
-    numero = models.CharField(max_length=4)
+    numero = models.CharField(max_length=500)
+    tipo = models.CharField(max_length=1)
 
 #------------------------------------------------------------------------------------------------
 #
