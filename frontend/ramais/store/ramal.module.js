@@ -15,10 +15,10 @@ import {
     DELETE_RAMAL
 } from "./constants.js";
 
-const state = {
+const state = () => ({
     ramais: [],
     ramaisCrud: []
-};
+});
 
 const getters = {
     ramais(state) {

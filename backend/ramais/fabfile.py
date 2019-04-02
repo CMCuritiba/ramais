@@ -10,7 +10,7 @@ WEBAPPS = '/usr/share/webapps'
 HTML = '/var/www/html'
 ENVS = '/usr/share/envs'
 PROJECT_ROOT = WEBAPPS + '/%s' % PROJECT_NAME
-BACKEND_ROOT = WEBAPPS + '/backend/ramais/' + '/%s' % PROJECT_NAME
+BACKEND_ROOT = PROJECT_ROOT + '/backend/ramais' + '/%s' % PROJECT_NAME
 REPO = 'https://github.com/CMCuritiba/ramais.git'
 USERAPP = 'www-data'
 ENV_NAME = 'ramais'
@@ -129,6 +129,7 @@ def install_production():
 
 @task
 def bootstrap():
+	'''
 	# Atualiza código para o servidor de aplicação
 
 	# git, nginx, supervisor e memcached
@@ -165,25 +166,26 @@ def bootstrap():
 	#sudo('npm install -g bower')
 
 	# Cria os diretórios e permissões necessários 
-
-	cria_grupo()
-	cria_userapp()
+	'''
+	#cria_grupo()
+	#cria_userapp()
+	sudo('git clone {} {}'.format(REPO, PROJECT_ROOT))
 	cria_webapps()	
 	cria_envs()
 	cria_html()
-	sudo('git clone {} {}'.format(REPO, PROJECT_ROOT))
+	#sudo('git clone {} {}'.format(REPO, PROJECT_ROOT))
 
 	with cd(PROJECT_ROOT):
 		# Cria o ambiente virtual do projeto 
 		sudo('virtualenv --python={} {}'.format(env.python_location, env.virtualenv))
 
-        with source_virtualenv():
+		with source_virtualenv():
             # Ativa o ambiente virtual 
-            sudo(env.activate, user='www-data')
+			sudo(env.activate, user='www-data')
 
             # Instala todos os pacotes no servidor 
-            with cd(BACKEND_ROOT):
-			    sudo('pip install -r requirements/production.txt')
+			with cd(BACKEND_ROOT):
+				sudo('pip install -r requirements/production.txt')
 
 	# Acerta o usuário/grupo
 	chown()
