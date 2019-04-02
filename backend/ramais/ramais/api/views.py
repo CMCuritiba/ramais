@@ -37,8 +37,8 @@ class RamalViewSet(
                     mixins.DestroyModelMixin,
                     viewsets.GenericViewSet):
 
-    #permission_classes = (CUDPermission,)
-    #authentication_classes = [TokenAuthentication, ]
+    permission_classes = (CUDPermission,)
+    authentication_classes = [TokenAuthentication, ]
     queryset = Ramal.objects.all()
     serializer_class = RamalSerializer
 

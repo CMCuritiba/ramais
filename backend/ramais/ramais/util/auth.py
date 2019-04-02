@@ -7,11 +7,11 @@ from rest_framework import exceptions
 
 class CUDPermission(permissions.IsAuthenticated):
     def has_permission(self, request, view):
-
-        if request.method in permissions.SAFE_METHODS:
-            return True
         username = request.user.username
-        if username == 'nosfe':
+        #if request.method in permissions.SAFE_METHODS:
+        if request.method in permissions.SAFE_METHODS and username == 'zaca':
+            return True
+        elif username == 'nosfe':
             return True
         else:
             return False

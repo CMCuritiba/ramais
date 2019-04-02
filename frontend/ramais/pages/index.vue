@@ -44,14 +44,9 @@ export default {
     return {
       textoFiltro: '',
       desabilitado: false,
-      lista: [],
+      lista: this.$store.getters.ramais,
       filtrado: false
     }
-  },
-
-  async beforeCreate() {
-    await this.$store.dispatch("loadRamais")
-    this.lista = this.$store.getters.ramais
   },
 
   computed: {

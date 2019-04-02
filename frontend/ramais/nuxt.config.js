@@ -1,3 +1,5 @@
+const env = require('dotenv').config()
+
 module.exports = {
   /*
   ** Headers of the page
@@ -49,4 +51,6 @@ module.exports = {
     port: 3000,
     host: '10.0.1.16'
   },
+
+  env: env.parsed,
 }

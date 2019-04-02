@@ -1,13 +1,12 @@
 import axios from 'axios'
 
 import { 
-    READ_TOKEN, 
-    SERVICE_URL, 
     GET_RAMAIS_URL, 
     SET_RAMAIS, 
     GET_RAMAIS_CRUD_URL, 
     SET_RAMAIS_CRUD,
-    AXIOS_HEADER,
+    AXIOS_HEADER_READ,
+    AXIOS_HEADER_WRITE,
     PUT_RAMAL_URL,
     EDIT_RAMAL,
     POST_RAMAL_URL,
@@ -32,28 +31,33 @@ const getters = {
 
 const actions = {
 
+    async nuxtServerInit({ dispatch }) {
+        await dispatch('loadRamais')
+        await dispatch('loadRamaisCrud')
+    },
+
     async loadRamais({ commit }) {
-        let data = await axios.get(GET_RAMAIS_URL)
+        let data = await axios.get(GET_RAMAIS_URL, AXIOS_HEADER_READ)
         commit(SET_RAMAIS, data.data)
     },
 
     async loadRamaisCrud({ commit }) {
-        let data = await axios.get(GET_RAMAIS_CRUD_URL)
+        let data = await axios.get(GET_RAMAIS_CRUD_URL, AXIOS_HEADER_READ)
         commit(SET_RAMAIS_CRUD, data.data);
     },
 
     async editRamal({ commit }, ramal) {
-        await axios.put(PUT_RAMAL_URL + ramal.id + '/', ramal, AXIOS_HEADER)
+        await axios.put(`${ PUT_RAMAL_URL }${ ramal.id }/`, ramal, AXIOS_HEADER_WRITE)
         commit(EDIT_RAMAL, ramal)
     },
 
     async insertRamal({ commit }, ramal) {
-        await axios.post(POST_RAMAL_URL, ramal, AXIOS_HEADER)
+        await axios.post(POST_RAMAL_URL, ramal, AXIOS_HEADER_WRITE)
         commit(INSERT_RAMAL, ramal)
     },
 
     async deleteRamal({ commit }, ramal) {
-        await axios.delete(DELETE_RAMAL_URL + ramal.id + '/', ramal, AXIOS_HEADER)
+        await axios.delete(`${ DELETE_RAMAL_URL }${ ramal.id }/`, ramal, AXIOS_HEADER_WRITE)
         commit(DELETE_RAMAL, ramal)
 
     },

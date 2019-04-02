@@ -1,10 +1,9 @@
 import axios from 'axios'
 
 import { 
-    READ_TOKEN, 
-    SERVICE_URL, 
     GET_SETORES_URL, 
-    SET_SETORES 
+    SET_SETORES,
+    AXIOS_HEADER_READ
 } from "./constants.js";
 
 const state = {
@@ -20,7 +19,7 @@ const getters = {
 const actions = {
 
     async loadSetores({ commit }) {
-        let data = await axios.get(GET_SETORES_URL)
+        let data = await axios.get(GET_SETORES_URL, AXIOS_HEADER_READ)
         commit(SET_SETORES, data.data);
     }
 };
