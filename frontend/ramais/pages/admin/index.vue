@@ -42,7 +42,7 @@ export default {
       tituloForm: 'Inclusão de Ramal',
       dialog: false,
       indice: -1,
-      lista: [],
+      lista: this.$store.getters.ramaisCrud,
       ramalAlterado: {
         id: 0,
         numero: "",
@@ -68,11 +68,6 @@ export default {
     }
   },
 
-  async beforeCreate() {
-    await this.$store.dispatch("loadRamaisCrud")
-    this.lista = this.$store.getters.ramaisCrud;
-  },
-
   computed: {
     ramaisFiltrados() {
       if (this.textoFiltro.trim() == '')
@@ -80,7 +75,6 @@ export default {
       else {
         const filter = new RegExp(this.textoFiltro, 'i');
         return this.lista.filter(el => {
-          console.log(el)
           if ((el['set_nome'].match(filter)) || (el['numero'].match(filter)))
             return true;
           else
@@ -93,7 +87,6 @@ export default {
   watch: {
     textoFiltro: function (val) {
       if (val.trim() != '') {
-        console.log(val)
         this.filtrado = true
       }
     },

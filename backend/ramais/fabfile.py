@@ -162,7 +162,7 @@ def bootstrap():
 	# baixar o node e instalar
 	sudo('curl -sL https://deb.nodesource.com/setup_8.x | bash -')
 	sudo('apt-get install -y nodejs')
-	sudo('npm install -g bower')
+	#sudo('npm install -g bower')
 
 	# Cria os diretórios e permissões necessários 
 
