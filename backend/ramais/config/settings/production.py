@@ -14,6 +14,8 @@ STATIC_ROOT = '/var/www/html/ramais/static'
 
 MEDIA_ROOT = '/var/www/html/ramais/media'
 
+SECRET_KEY = 'adjasjkk1318945nhhj2h34234Nosfeiueriqw31982Zacasdjkasjdkas'
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
