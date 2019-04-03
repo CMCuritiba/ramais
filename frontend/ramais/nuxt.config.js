@@ -48,8 +48,8 @@ module.exports = {
     }
   },
   server: {
-    port: 3000,
-    host: '10.0.1.16'
+    port: process.env.VUE_APP_SERVER_PORT,
+    host: process.env.VUE_APP_SERVER_URL
   },
 
   env: env.parsed,
