@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-** Descreva o bug**
+**Descreva o bug**
 Uma descrição clara e concisa do bug
 
 **Para Reproduzir**
@@ -17,7 +17,7 @@ Passos para reproduzir o comportamento :
 3. Role até '....'
 4. Veja o erro
 
-** Comportamento Esperado **
+**Comportamento Esperado**
 Uma descrição concisa e clara do comportamento esperado
 
 **Screenshots**

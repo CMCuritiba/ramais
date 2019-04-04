@@ -2,19 +2,19 @@
 name: Requisição de melhoria
 about: Sugira uma ideia ou melhoria para o projeto
 title: ''
-labels: ''
+labels: enhancement
 assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+**A sua melhoria está relacionada com um problema ? Por favor descreva.**
+Uma descrição clara e concisa de qual é o problema. Ex. Os dados demoram muito a carregar quando acesso a tela [...]
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+**Descreva a solução que você gostaria**
+Uma descrição clara e concisa do que você gostaria que acontecesse.
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+**Descreva as alternativas que você considerou**
+Uma descrição clara e concisa de todas as alternativas consideradas para solucionar o problema.
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+**Contexto adicional**
+Adicione qualquer outra informação que você julgue importante para a melhoria desejada, como screenshots, etc.
