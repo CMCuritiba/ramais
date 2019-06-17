@@ -27,6 +27,8 @@
 <script>
 import TabelaAdmin from '~/components/UI/admin/TabelaAdmin.vue';
 import FormRamalAdmin from '~/components/UI/admin/FormRamalAdmin.vue';
+import replaceSpecial from '~/lib/string';
+
 export default {
   layout: 'admin',
 
@@ -73,9 +75,10 @@ export default {
       if (this.textoFiltro.trim() == '')
         return this.lista
       else {
-        const filter = new RegExp(this.textoFiltro, 'i');
+        const filter = new RegExp(replaceSpecial(this.textoFiltro), 'i');
         return this.lista.filter(el => {
-          if ((el['set_nome'].match(filter)) || (el['numero'].match(filter)))
+          const setor = replaceSpecial(el['set_nome'])
+          if ((setor.match(filter)) || (el['numero'].match(filter)))
             return true;
           else
             return false;

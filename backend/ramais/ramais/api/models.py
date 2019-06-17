@@ -37,7 +37,11 @@ class Funcionario(models.Model):
     matricula = models.IntegerField()
     pes_nome = models.CharField(max_length=500)
     funcao = models.IntegerField(blank=True, null=True)
-    setor = models.ForeignKey(Setor, on_delete=models.DO_NOTHING)    		
+    setor = models.ForeignKey(Setor, on_delete=models.DO_NOTHING) 
+
+    @property
+    def nome(self):
+        return self.pes_nome.title()
 #------------------------------------------------------------------------------------------------
 #
 #------------------------------------------------------------------------------------------------
@@ -66,6 +70,10 @@ class SetorFuncionarioRamal(models.Model):
     numero = models.CharField(max_length=500)
     tipo = models.CharField(max_length=1)
 
+    @property
+    def nome(self):
+        return self.pes_nome.title()
+
 #------------------------------------------------------------------------------------------------
 #
 #------------------------------------------------------------------------------------------------
@@ -80,3 +88,4 @@ class RamalAdmin(models.Model):
     visivel = models.BooleanField(default=True)
     setor_id = models.IntegerField()
     set_nome = models.CharField(max_length=500)
+

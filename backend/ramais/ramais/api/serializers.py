@@ -16,7 +16,7 @@ class SetorSerializer(serializers.ModelSerializer):
 class FuncionarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Funcionario
-        fields = ('id', 'matricula', 'pes_nome', 'funcao', 'setor')                
+        fields = ('id', 'matricula', 'nome', 'funcao', 'setor')                
 
 class RamalSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,7 +26,7 @@ class RamalSerializer(serializers.ModelSerializer):
 class SetorFuncionarioRamalSerializer(serializers.ModelSerializer):
     class Meta:
         model = SetorFuncionarioRamal
-        fields = ('set_id', 'pessoa', 'set_nome', 'pes_nome', 'numero', 'tipo')
+        fields = ('set_id', 'pessoa', 'set_nome', 'nome', 'numero', 'tipo')
 
 class RamalAdminSerializer(serializers.ModelSerializer):
     class Meta:

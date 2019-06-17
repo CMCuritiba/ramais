@@ -35,6 +35,7 @@
 
 <script>
 import Tabela from '~/components/UI/Tabela.vue';
+import replaceSpecial from '~/lib/string';
 
 export default {
   components: {
@@ -55,9 +56,11 @@ export default {
       if (this.textoFiltro.trim() == '')
         return this.lista
       else {
-        const filter = new RegExp(this.textoFiltro, 'i');
+        const filter = new RegExp(replaceSpecial(this.textoFiltro), 'i');
         return this.lista.filter(el => {
-          if ((el['set_nome'].match(filter)) || (el['pes_nome'].match(filter)) || (el['numero'].match(filter)))
+          const setor = replaceSpecial(el['set_nome'])
+          const nome = replaceSpecial(el['nome'])
+          if ((setor.match(filter)) || (nome.match(filter)) || (el['numero'].match(filter)))
             return true;
           else
             return false;
@@ -72,7 +75,7 @@ export default {
 
     listaCompletaPDF() {
       this.$store.dispatch("geraRelatorio", '')
-    }
+    },
   },
   watch: {
     textoFiltro: function (val) {
@@ -86,8 +89,8 @@ export default {
       }
     }
   }
-
 }
+
 </script>
 
 

@@ -8,7 +8,7 @@
   >
     <template v-slot:items="props">
       <td class="text-xs-left">{{ props.item.set_nome }}</td>
-      <td class="text-xs-left">{{ props.item.pes_nome }}</td>
+      <td class="text-xs-left">{{ props.item.nome }}</td>
       <td class="text-xs-center"><FormatRamais :ramais="props.item" /></td>
     </template>
     <template v-slot:pageText="props">
@@ -52,7 +52,7 @@
             text: 'Funcionário',
             align: 'left',
             sortable: true,
-            value: 'pes_nome'
+            value: 'nome'
           },
           {
             text: 'Ramal',
