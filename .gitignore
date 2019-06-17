@@ -65,3 +65,4 @@ staticfiles/
 *.db
 db.sqlite
 .vscode
+package-lock.json
