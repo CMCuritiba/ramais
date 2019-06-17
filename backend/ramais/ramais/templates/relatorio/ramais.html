@@ -117,7 +117,7 @@
             {% for ramal in ramais %}
             <tr>
                 <td class="setor {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %}">{{ ramal.set_nome }}</td>
-                <td class="pessoa {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %}">{{ ramal.pes_nome }}</td>
+                <td class="pessoa {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %}">{{ ramal.nome }}</td>
                 <td class="numero {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %}" align="right">{{ ramal.numero }}</td>
             </tr>
             {% endfor %}

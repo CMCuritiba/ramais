@@ -47,13 +47,13 @@ class RamalViewSet(
 #--------------------------------------------------------------------------------------        
 class SetorFuncionarioRamalListView(generics.ListAPIView):
 
-    permission_classes = (CUDPermission,)
-    authentication_classes = [TokenAuthentication, ]                    
+    #permission_classes = (CUDPermission,)
+    #authentication_classes = [TokenAuthentication, ]                    
     serializer_class = SetorFuncionarioRamalSerializer    
     queryset = SetorFuncionarioRamal.objects.all()
     filter_backends = (DjangoFilterBackend, OrderingFilter)
-    filter_fields = ('set_nome', 'pes_nome', )
-    ordering_fields = ('set_nome', 'pes_nome', )
+    #filter_fields = ('set_nome', 'nome', )
+    #ordering_fields = ('set_nome', 'nome', )
 
 #--------------------------------------------------------------------------------------
 # 
@@ -98,7 +98,7 @@ class GeraPdfRamais(CMCReportView):
         if parametros is None:
             ramais = SetorFuncionarioRamal.objects.all().order_by('set_id', 'pes_nome')
         else:            
-            ramais = SetorFuncionarioRamal.objects.filter(Q(pes_nome__icontains=parametros) | Q(set_nome__icontains=parametros) | Q(numero__icontains=parametros)).order_by('set_id', 'pes_nome')
+            ramais = SetorFuncionarioRamal.objects.filter(Q(pes_nome__icontains=parametros) | Q(set_nome__icontains=parametros) | Q(numero__icontains=parametros)).order_by('set_id', 'nome')
         self.ramais = ramais
 
         return super(GeraPdfRamais, self).get(request, *args, **kwargs)          
