@@ -11,6 +11,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "dotenv": "^7.0.0",
     "json-aggregate": "^0.1.0",
     "nuxt": "^2.2.0",
