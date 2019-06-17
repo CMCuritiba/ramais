@@ -38,8 +38,8 @@
     data () {
       return {
         pagination: {
-            rowsPerPage: 12,
-            rowsPerPageItems: [12]
+            rowsPerPage: -1,
+            rowsPerPageItems: [-1]
         },
         headers: [
           {
