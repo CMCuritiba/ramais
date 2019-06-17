@@ -26,6 +26,8 @@ from consumer.lib import helper
 
 from cmcreport.lib.views import CMCReportView
 
+import unicodedata
+
 #--------------------------------------------------------------------------------------
 # 
 #--------------------------------------------------------------------------------------        
@@ -97,8 +99,11 @@ class GeraPdfRamais(CMCReportView):
         ramais = []
         if parametros is None:
             ramais = SetorFuncionarioRamal.objects.all().order_by('set_id', 'pes_nome')
-        else:            
-            ramais = SetorFuncionarioRamal.objects.filter(Q(pes_nome__icontains=parametros) | Q(set_nome__icontains=parametros) | Q(numero__icontains=parametros)).order_by('set_id', 'pes_nome')
+        else:           
+            #ramais = SetorFuncionarioRamal.objects.filter(Q(pes_nome__unaccent=parametros) | Q(set_nome__unaccent__startswith=parametros) | Q(numero__icontains=parametros)).order_by('set_id', 'pes_nome')
+            sql = "select * from v_setor_funcionario where unaccent(lower(pes_nome)) like '%%{0}%%' or unaccent(lower(set_nome)) like '%%{0}%%' or numero='{0}' order by set_id, pes_nome".format(parametros)
+            ramais = SetorFuncionarioRamal.objects.raw(sql)
         self.ramais = ramais
 
         return super(GeraPdfRamais, self).get(request, *args, **kwargs)          
+        
