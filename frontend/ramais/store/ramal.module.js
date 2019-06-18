@@ -53,7 +53,12 @@ const actions = {
 
   async insertRamal ({ commit }, ramal) {
     await axios.post(POST_RAMAL_URL, ramal, AXIOS_HEADER_WRITE)
-    commit(INSERT_RAMAL, ramal)
+      .then(response => {
+        commit(INSERT_RAMAL, ramal)
+      })
+      .catch(error => {
+        console.log(error)
+      })
   },
 
   async deleteRamal ({ commit }, ramal) {

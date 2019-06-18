@@ -35,7 +35,7 @@
                 </v-flex>
                 <v-flex xs12 sm6 md6>
                     <v-text-field 
-                        v-validate="'required|min:4'" 
+                        v-validate="'required|min:4|ramal'" 
                         data-vv-name="numero"
                         :error-messages="errors.collect('numero')"
                         v-model="ramal.numero" 
@@ -79,7 +79,10 @@
 
 <script>
 import Vue from 'vue'
-import VeeValidate from 'vee-validate'
+import VeeValidate,{ Validator } from 'vee-validate'
+
+let _this;
+let ramal;
 
 Vue.use(VeeValidate)
 
@@ -106,8 +109,10 @@ export default {
     },
 
     async beforeCreate() {
+        console.log('BEFORECREATE')
         await this.$store.dispatch("loadSetores")
         this.items = this.$store.getters.setores
+        _this = this
     },
 
     data() {
@@ -123,7 +128,7 @@ export default {
                 {tipo: "2", descricao: 'Recepção'},
                 {tipo: "3", descricao: 'Chefia'}
             ],
-            items: this.$store.state.setores
+            items: this.$store.state.setores, 
         }
     },
 
@@ -140,7 +145,33 @@ export default {
 
     mounted () {
       this.$validator.localize('pt_BR', this.dictionary)
+
+      const ramalUnico = {
+          getMessage(field, args) {
+              return `Este ramal já está cadastrado.`
+          },
+          validate(value, args) {
+              let retorno = true;
+              const ramais = _this.$store.getters.ramaisCrud
+              ramais.forEach(element => {
+                  if (element.numero === value) {
+                    if (ramal.id != element.id)
+                        retorno = false
+                  }
+              });
+              return retorno
+          }
+      };
+
+      Validator.extend('ramal', ramalUnico);
+
     },
+
+    watch: {
+        ramal: function (val) {
+            ramal = Object.assign({}, val)
+        },
+    }
     
 }
 </script>
