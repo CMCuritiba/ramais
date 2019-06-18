@@ -109,7 +109,6 @@ export default {
     },
 
     async beforeCreate() {
-        console.log('BEFORECREATE')
         await this.$store.dispatch("loadSetores")
         this.items = this.$store.getters.setores
         _this = this
