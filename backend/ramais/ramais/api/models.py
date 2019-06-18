@@ -47,7 +47,7 @@ class Funcionario(models.Model):
 #------------------------------------------------------------------------------------------------
 class Ramal(models.Model):
     
-    numero = models.CharField(max_length=4) # número do ramal
+    numero = models.CharField(max_length=4, unique=True) # número do ramal
     tipo = models.CharField(max_length=1) # 0 - nenhum, 1 - geral, 2 - recepção, 3 - chefia
     visivel = models.BooleanField(default=True) # se o ramal aparece ou não na list
     setor_id = models.IntegerField() # referencia o setor do ramal
