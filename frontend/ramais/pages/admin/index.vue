@@ -21,12 +21,14 @@
   <FormRamalAdmin :dialog="dialog" :ramal="ramalAlterado" :titulo="tituloForm" @close="close" @save="save"/>
   <TabelaAdmin :lista="ramaisFiltrados" @altera="alteraRamal" @exclui="excluiRamal"/>
 </v-card>
+<message :type="msgTipo" :text="msgTexto" :snackbar="msgVisivel"/>
 </div>
 </template>
 
 <script>
 import TabelaAdmin from '~/components/UI/admin/TabelaAdmin.vue';
 import FormRamalAdmin from '~/components/UI/admin/FormRamalAdmin.vue';
+import Message from '~/components/UI/admin/Message.vue';
 import replaceSpecial from '~/lib/string';
 
 export default {
@@ -34,11 +36,15 @@ export default {
 
   components: {
       TabelaAdmin,
-      FormRamalAdmin
+      FormRamalAdmin,
+      Message
   },
 
   data() {
     return {
+      msgTipo: 'success',
+      msgTexto: 'Ramal incluído com sucesso',
+      msgVisivel: false,
       textoFiltro: '',
       filtrado: false,
       tituloForm: 'Inclusão de Ramal',
@@ -102,6 +108,7 @@ export default {
 
   methods: {
     alteraRamal(indice, ramal) {
+      this.msgVisivel = false
       this.tituloForm = 'Alteração de Ramal'
       this.indice = Object.assign({}, indice)
       this.ramalAlterado = Object.assign({}, ramal)
@@ -115,6 +122,8 @@ export default {
         this.dialog = false
         await this.$store.dispatch("loadRamaisCrud")
         this.lista = this.$store.getters.ramaisCrud;
+        this.msgTexto = "Ramal excluído com sucesso."
+        this.msgVisivel = true
       }
     },
     close() {
@@ -126,15 +135,21 @@ export default {
         this.dialog = false
         await this.$store.dispatch("loadRamaisCrud")
         this.lista = this.$store.getters.ramaisCrud;
+        this.msgTexto = "Ramal alterado com sucesso."
+        this.msgVisivel = true
+
       }
       else {
         await this.$store.dispatch("insertRamal", this.ramalAlterado)
         this.dialog = false
         await this.$store.dispatch("loadRamaisCrud")
         this.lista = this.$store.getters.ramaisCrud;
+        this.msgTexto = "Ramal incluído com sucesso."
+        this.msgVisivel = true
       }
     },
     novo() {
+      this.msgVisivel = false
       this.tituloForm = 'Inclusão de Ramal'
       this.indice = -1
       this.ramalAlterado = Object.assign({}, this.ramalDefault)

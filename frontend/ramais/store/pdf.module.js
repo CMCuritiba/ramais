@@ -31,7 +31,7 @@ const actions = {
     a.style = 'display: none'
     a.href = url
     a.download = 'lista_de_ramais.pdf'
-    a.target = '_relatorio'
+    a.target = 'relatorio'
     // window.open(url, 'relatorio')
     // window.URL.revokeObjectURL(url)
     a.click()
