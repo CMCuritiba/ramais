@@ -97,6 +97,7 @@ export default {
     textoFiltro: function (val) {
       if (val.trim() != '') {
         this.filtrado = true
+        this.msgVisivel = false
       }
     },
     filtrado: function (val) {
